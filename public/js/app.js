@@ -4,23 +4,31 @@
 
 angular.module('myApp', [
   'myApp.controllers',
-  'myApp.filters',
-  'myApp.services',
-  'myApp.directives'
-]).
-config(function ($routeProvider, $locationProvider) {
+  'firebase'
+])
+.config(function ($routeProvider, $locationProvider) {
   $routeProvider.
-    when('/view1', {
-      templateUrl: 'partials/partial1',
-      controller: 'MyCtrl1'
+    when('/home', {
+      templateUrl: 'partials/home',
+      controller: 'HomeCtrl'
     }).
-    when('/view2', {
-      templateUrl: 'partials/partial2',
-      controller: 'MyCtrl2'
+    when('/points', {
+      templateUrl: 'partials/points',
+      controller: 'PointsCtrl',
+      authRequired: true
+    }).
+    when('/admin', {
+      templateUrl: 'partials/admin',
+      controller: 'AdminCtrl',
+      authRequired: true
     }).
     otherwise({
-      redirectTo: '/view1'
+      redirectTo: '/home'
     });
 
   $locationProvider.html5Mode(true);
-});
+})
+.constant('FIREBASE_URL', 'https://my-points.firebaseio.com')
+.run(['$rootScope', 'angularFireAuth', 'FIREBASE_URL', function($rootScope, angularFireAuth, FIREBASE_URL) {
+  angularFireAuth.initialize(new Firebase(FIREBASE_URL), {scope: $rootScope, name: 'user'});
+}]);

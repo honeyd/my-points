@@ -1,0 +1,28 @@
+div.row
+  div.col-lg-12
+    div.well
+      form.form-horizontal
+        fielset
+          legend Add Points
+          div.form-group
+            label.col-lg-2.control-label(for='inputDescription') Description
+            div.col-lg-10
+              input.form-control(type='text', id='inputDescription', ng-model='new.description')
+          div.form-group
+            label.col-lg-2.control-label(for='inputPoints') Points
+            div.col-lg-10
+              input.form-control(type='text', id='inputPoints', ng-model='new.points')
+          div.form-group
+            div.col-lg-10.col-lg-offset-2
+              button.btn.btn-primary(ng-click='create()') Save
+div.row
+  div.col-lg-12
+    ul.list-group
+      li.list-group-item(ng-repeat='point in points')
+        span.pull-right
+          a(style='margin-left: 10px;', ng-click='delete($index)')
+            i.icon-remove
+        span.label.label-primary(style='margin-right: 10px;') 
+          | {{point.points}}
+        span
+          {{point.description}}

@@ -2,22 +2,29 @@ extends layout
 
 block body
   div(ng-controller='AppCtrl')
-    h2 Hello {{name}}
-    ul.menu
-      li
-        a(href='view1') view1
-      li
-        a(href='view2') view2
-
-    div(ng-view)
-
-    div
-      | Angular seed app: v
-      span(app-version)
+    div.navbar.navbar-default
+      div.container
+        div.navbar-header
+          a.navbar-brand(href='/') My Points
+          button.navbar-toggle(type='button', data-toggle='collapse', data-target='#navbar-main')
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+        div.navbar-collapse.collapse(id='navbar-main')
+          ul.nav.navbar-nav.navbar-right
+            li
+              a.pull-right(ng-click='logout()', ng-show='user', title='Sign out') 
+                i.icon-signout
+              a.pull-right(href='points', ng-show='user', title='Dashboard') {{user.name}}
+              a.pull-right(href='admin', ng-show='user', title='Configure')
+                i.icon-cog
+              a(ng-click='login()', ng-hide='user') Login
+    div.container(ng-view)
 
   script(src='js/lib/angular/angular.js')
+  script(src='//cdn.firebase.com/v0/firebase.js')
+  script(src='//cdn.firebase.com/v0/firebase-auth-client.js')
+  script(src='//cdn.firebase.com/v0/firebase-simple-login.js')
+  script(src='//cdn.firebase.com/libs/angularfire/0.3.0/angularfire.js')
   script(src='js/app.js')
-  script(src='js/services.js')
   script(src='js/controllers.js')
-  script(src='js/filters.js')
-  script(src='js/directives.js')

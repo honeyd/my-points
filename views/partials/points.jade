@@ -1,0 +1,23 @@
+div.row
+  div.col-lg-8
+    div.panel.panel-default
+      div.panel-body 
+        div.col-sm-3 {{totalPoints}} / {{possiblePoints}}
+        div.col-sm-9
+          div.progress(style='margin-bottom: 0;')
+            div.progress-bar(style='width: {{progress()}}%;')
+  div.col-lg-4
+    div.well(style='text-align: center; padding: 15px;') 
+      span.icon-caret-left(style='margin-right: 10px;', ng-click='goBack()')
+      | {{date | date:'fullDate'}}
+      span.icon-caret-right(style='margin-left: 10px;', ng-click='goForward()')
+div.row
+  div.col-lg-12
+    div.panel.panel-default(ng-repeat='point in points')
+      div.panel-body 
+        div.col-sm-1
+          input(type='checkbox', style='width: 20px; height: 20px; margin: 0', ng-click='checkit(point)', ng-checked='isChecked(point)')
+        div.col-sm-10
+          {{point.description}}
+        div.col-sm-1
+          span.badge {{point.points}}
